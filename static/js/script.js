@@ -80,7 +80,8 @@ function setAnimationOnShowing() {
     threshold: 0.4
   })
 
-  Array.from(document.body.children).forEach(child => {
+  const wrapper = document.querySelector(".wrapper")
+  Array.from(wrapper.children).forEach(child => {
     observer.observe(child)
   })
 
@@ -92,7 +93,8 @@ function setAnimationOnShowing() {
 }
 
 function setBodyChildrenClassHide() {
-  Array.from(document.body.children).forEach(child => {
+  const wrapper = document.querySelector(".wrapper")
+  Array.from(wrapper.children).forEach(child => {
     child.classList.add("hide")
   })
 }
