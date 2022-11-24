@@ -89,3 +89,12 @@
     margin: 27px 0 0 0;
   }
 }
+
+.anchor {
+  transition: all ease .3s;
+  cursor: pointer;
+
+  &:hover {
+    opacity: .6;
+  }
+}

@@ -3,10 +3,24 @@ function setWelcomeFull() {
   welcome.style.height = window.innerHeight + 400 + "px"
 }
 
-function setCorrectSlider() {
+function setSizesSlider() {
+  const sliderContainer = document.querySelector(".slider__container")
   const slider = document.querySelector(".slider__block")
   const sliderLine = slider.querySelector(".slider__line")
   const sliderItems = slider.querySelectorAll(".slider__item")
+  
+  setCorrectStyle()
+
+  function setCorrectStyle() {
+    slider.style.width = (sliderContainer.clientWidth / 100 * 90) + "px"
+    sliderItems.forEach(item => item.style.minWidth = slider.style.width)
+    sliderLine.style.width = sliderItems[0].clientWidth * (sliderItems.length-1) + "px"
+  }
+}
+
+function setInteractionsSlider() {
+  const slider = document.querySelector(".slider__block")
+  const sliderLine = slider.querySelector(".slider__line")
 
   const prev = slider.querySelector(".slider__prev")
   const next = slider.querySelector(".slider__next")
@@ -29,7 +43,6 @@ function setCorrectSlider() {
     startX > endX ? moveNext() : movePrev()
   })
 
-
   function setHandlers() {
     prev.addEventListener("click", movePrev)
     next.addEventListener("click", moveNext)
@@ -48,9 +61,53 @@ function setCorrectSlider() {
   }
 }
 
+function setAnchors() {
+  const anchors = document.getElementsByClassName("anchor")
+
+  for (const anchor of anchors) {
+    anchor.addEventListener("click", () => {
+      const toNode = document.querySelector(`.${anchor.dataset.to}`)
+      window.scrollTo({
+        top: toNode.offsetTop,
+        behavior: "smooth"
+      })
+    })
+  }
+}
+
+function setAnimationOnShowing() {
+  const observer = new IntersectionObserver(callback, {
+    threshold: 0.4
+  })
+
+  Array.from(document.body.children).forEach(child => {
+    observer.observe(child)
+  })
+
+  function callback(entry) {
+    entry.forEach(node => {
+      if (node.isIntersecting) node.target.classList.remove("hide")
+    })
+  }
+}
+
+function setBodyChildrenClassHide() {
+  Array.from(document.body.children).forEach(child => {
+    child.classList.add("hide")
+  })
+}
+
 try {
   setWelcomeFull()
-  setCorrectSlider()
+  setSizesSlider()
+  setInteractionsSlider()
+  setAnchors()
+
+  // set animation things
+  setBodyChildrenClassHide()
+  setAnimationOnShowing()
+
+  window.addEventListener("resize", setSizesSlider)
 } catch(err) {
   console.error(err)
 }
