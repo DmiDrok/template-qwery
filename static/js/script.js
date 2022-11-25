@@ -1,6 +1,8 @@
 function setWelcomeFull() {
-  const welcome = document.querySelector(".welcome")
-  welcome.style.height = window.innerHeight + 400 + "px"
+  if (window.innerWidth) {
+    const welcome = document.querySelector(".welcome")
+    welcome.style.height = window.innerHeight + 400 + "px"
+  }
 }
 
 function setSizesSlider() {
@@ -68,7 +70,7 @@ function setAnchors() {
     anchor.addEventListener("click", () => {
       const toNode = document.querySelector(`.${anchor.dataset.to}`)
       window.scrollTo({
-        top: toNode.offsetTop,
+        top: toNode.offsetTop - toNode.offsetTop/6,
         behavior: "smooth"
       })
     })
@@ -81,7 +83,11 @@ function setAnimationOnShowing() {
   })
 
   const wrapper = document.querySelector(".wrapper")
+  const other = document.querySelector(".wrapper__other")
   Array.from(wrapper.children).forEach(child => {
+    observer.observe(child)
+  })
+  Array.from(other.children).forEach(child => {
     observer.observe(child)
   })
 
@@ -94,8 +100,16 @@ function setAnimationOnShowing() {
 
 function setBodyChildrenClassHide() {
   const wrapper = document.querySelector(".wrapper")
+  
   Array.from(wrapper.children).forEach(child => {
     child.classList.add("hide")
+
+    if (child.classList.contains("wrapper__other")) {
+      console.log(child)
+      Array.from(child.children).forEach(child => {
+        child.classList.add("hide")
+      })
+    }
   })
 }
 

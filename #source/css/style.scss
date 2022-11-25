@@ -14,6 +14,14 @@ body {
   max-width: 1461px;
 }
 
+.wrapper {
+  &__other {
+    position: relative;
+    background: #000;
+    // overflow-x: hidden;
+  }
+}
+
 // Описание шапки
 .header {
   width: 100%;
@@ -26,11 +34,19 @@ body {
   &__row {
     padding: 58px 0px;
 
-    display: flex;
+    // display: flex;
+    // justify-content: space-between;
+    
+    display: grid;
+    grid-template-areas: 
+      "logo links search"
+    ;
     justify-content: space-between;
   }
 
   &__logo {
+    grid-area: logo;
+
     font-size: 24px;
     font-weight: 700;
     line-height: 33px;
@@ -43,6 +59,8 @@ body {
   }
 
   &__nav {
+    grid-area: links;
+
     display: flex;
     align-items: center;
 
@@ -65,6 +83,8 @@ body {
   }
 
   &__search {
+    grid-area: search;
+
     display: flex;
     align-items: center;
     opacity: 1;
@@ -108,27 +128,26 @@ body {
 
 @media (max-width: 900px) {
   .header {
+    &__logo {
+      text-align: center;
+    }
+
     &__row {
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .nav {
-      margin: 40px 0 0 0;
-    }
-
-    &__search {
-      margin: 40px 0 0 0;
+      grid-template-areas: 
+        "logo logo"
+        "links search"
+      ;
+      grid-gap: 40px;
+      justify-content: center;
+      padding: 100px 0 0 0;
     }
   }
 
   .welcome {
     .social {
-      top: 20% !important;
-    }
-
-    &__text {
-      transform: unset !important;
+      top: 2% !important;
+      left: 50% !important;
+      transform: translate(-50%, 0) !important;
     }
   }
 }
@@ -138,9 +157,20 @@ body {
 /// Описание первой секции
 
 .welcome {
-  background: url("../img/1_1.png") 0/cover;
+  // background: url("../img/1_1.png") 0/cover;
   height: 100vh;
   color: #fff;
+
+  position: relative;
+
+  &__bg {
+    position: absolute;
+    background: url("../img/1_1.png") 0/cover no-repeat;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
 
   &.hide {
     .header {
@@ -164,6 +194,14 @@ body {
 
   &.hide &__text {
     opacity: 0;
+  }
+
+  &__outer {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
   }
 
   &__container {
@@ -205,10 +243,11 @@ body {
   }
 
   .social {
-    top: 40%;
+    top: 50%;
     left: 0;
-    transform: translate(0, -50%);
+    transform: translate(0, -70%);
     z-index: 1;
+    
 
     &__lure {
       transform: rotate(90deg);
@@ -250,6 +289,7 @@ body {
       display: flex;
       flex-direction: row;
       align-items: center;
+      
 
       &__lure {
         transform: unset;
@@ -286,7 +326,7 @@ body {
     opacity: 1;
     transition: all ease 1.5s 1s;
     
-    transform: translate(0%, -30%);
+    // transform: translate(0%, -50%);
   }
 
   &__title {
@@ -367,16 +407,15 @@ body {
   }
 
   &.hide &__image {
-    left: -9999px;
+    opacity: 0;
   }
 
   &.hide &__text {
-    right: -9999px;
+    opacity: 0;
   }
 
   &__image {
-    position: relative;
-    left: 0;
+    opacity: 1;
     transition: all ease 1s;
 
     @media (max-width: 1710px) {
@@ -391,8 +430,7 @@ body {
   &__text {
     margin: 0 0 0 232px;
 
-    position: relative;
-    right: 0;
+    opacity: 1;
     transition: all ease 1s .5s;
 
     @media (max-width: 1710px) {
@@ -635,7 +673,7 @@ body {
     opacity: 0;
   }
 
-  &.hide .content_end {
+  &.hide .content__end {
     opacity: 0;
   }
 
@@ -760,7 +798,7 @@ body {
         font-size: 18px;
         font-weight: 400;
         line-height: 20px;
-        letter-spacing: -0.20454545319080353px;
+        letter-spacing: -0.2px;
         text-align: left;
         color: rgba(255, 255, 255, .7);
 

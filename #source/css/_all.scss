@@ -1,5 +1,9 @@
 @import "./variables";
 
+section:not(.place) {
+  overflow-x: hidden;
+}
+
 .title-line {
   display: inline-flex;
   align-items: center;
