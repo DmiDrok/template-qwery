@@ -105,7 +105,6 @@ function setBodyChildrenClassHide() {
     child.classList.add("hide")
 
     if (child.classList.contains("wrapper__other")) {
-      console.log(child)
       Array.from(child.children).forEach(child => {
         child.classList.add("hide")
       })
